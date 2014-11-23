@@ -12,6 +12,8 @@ Ruby's [Rack][rack] libraries.
 
 Currently, Fold is implemented in pure XQuery code (on top of [RESTXQ][restxq]).
 
+For more information go the the [Wiki][wiki].
+
 IMPORTANT: This library is not yet ready for production use, far from it, it is
 probably full of bugs. It does not perform well, not everything is fully
 implemented, it's not documented (but does have tests). I hope that by
@@ -52,3 +54,4 @@ Hope to get some documentation up soon.
 [restxq]: http://exquery.github.io/exquery/exquery-restxq-specification/restxq-1.0-specification.html
 [ring]: https://github.com/ring-clojure/ring
 [compojure]: https://github.com/weavejester/compojure
+[wiki]: https://github.com/xokomola/fold/wiki

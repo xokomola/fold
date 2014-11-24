@@ -67,17 +67,17 @@ declare function req:content-length($request as map(*))
         xs:long($content-length-header)
 };
 
-(:~
- : Character encoding of the request.
- :
- : @param $reuqest The request map
- : @return The character encoding or empty sequence if not set.
- :)
 declare variable $req:re-token := "[!#$%&amp;'*\-+.0-9A-Z\^_`a-z\|~]+";
 declare variable $req:re-quoted := '"[^"]*"';
 declare variable $req:re-value := $req:re-token || '|' || $req:re-quoted;
 declare variable $req:charset-pattern := ';.*\s?charset=(' || $req:re-value || ')\s*[;|$]?';
 
+(:~
+ : Character encoding of the request.
+ :
+ : @param $request The request map
+ : @return The character encoding or empty sequence if not set.
+ :)
 declare function req:character-encoding($request as map(*)) 
     as xs:string? {
     let $m :=

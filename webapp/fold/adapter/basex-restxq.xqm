@@ -4,6 +4,8 @@ xquery version "3.0";
  : Fold adapter for BaseX / RESTXQ
  :
  : Contains the lower-level stuff to interface with BaseX.
+ : Also makes dispatches the request to the main routes in
+ : routes.xqm fold:route.
  :
  : @version 0.1
  : @author Marc van Grootel
@@ -14,8 +16,8 @@ module namespace fold = 'http://xokomola.com/xquery/fold/adapter';
 import module namespace request = 'http://exquery.org/ns/request';
 import module namespace res = 'http://xokomola.com/xquery/fold/response'
     at '../../fold/response.xqm'; 
-import module namespace apps = 'http://xokomola.com/xquery/fold-app'
-    at '../../fold-app/app.xqm'; 
+import module namespace service = 'http://xokomola.com/xquery/fold'
+    at '../../routes.xqm'; 
 
 declare variable $fold:time := false();
 declare variable $fold:time-cache := false();
@@ -27,17 +29,27 @@ declare variable $fold:time-cache := false();
  :
  : @param $request a request map.
  : @return the HTTP response object.
+ : @error Foo bar
+ : @since 0.1
+ : @see foobar
+ : @deprecated
  :)
 
 declare function fold:serve($request as map(*)) {
-    fold:serve-response(apps:serve()($request))
+    fold:serve-response(service:routes()($request))
 };
 
 declare function fold:timed-serve($request as map(*)) {
-    prof:mem(prof:time(fold:serve($request), $fold:time-cache, 'TOTAL TIME: '), $fold:time-cache, 'TOTAL MEM: ')
+    prof:mem(prof:time(fold:serve($request), 
+        $fold:time-cache, 'TOTAL TIME: '), 
+        $fold:time-cache, 'TOTAL MEM: ')
 };
 
-declare variable $fold:handler := if ($fold:time) then fold:timed-serve#1 else fold:serve#1;
+declare variable $fold:handler := 
+    if ($fold:time) then 
+        fold:timed-serve#1 
+    else
+        fold:serve#1;
 
 (:~
  : Create the initial request map.

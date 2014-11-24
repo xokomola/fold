@@ -76,7 +76,7 @@ declare function wrap:assoc-form-params($request as map(*), $encoding as xs:stri
 
 (:~
  : Adds parameters from the query string and the request body to the request
- : map. See: wrap:params.
+ : map. See: `wrap:params`.
  :
  : NOTE: not sure yet if I should use request:parameter instead of parsing params
  :)

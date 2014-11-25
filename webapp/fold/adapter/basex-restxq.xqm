@@ -194,6 +194,36 @@ function fold:proxy($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9) { $fold:handler
 declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/{$s10}") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
 function fold:proxy($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10))) };
 
+declare %rest:path("/{$s1}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1) { $fold:handler(fold:path(($s1))) };
+
+declare %rest:path("/{$s1}/{$s2}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2) { $fold:handler(fold:path(($s1,  $s2))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3) { $fold:handler(fold:path(($s1, $s2, $s3))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4) { $fold:handler(fold:path(($s1, $s2, $s3, $s4))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4, $s5) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4, $s5, $s6) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5, $s6))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4, $s5, $s6, $s7) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5, $s6, $s7))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/{$s10}/") %rest:GET %rest:DELETE %rest:HEAD %rest:OPTIONS
+function fold:proxy_slash($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10) { $fold:handler(fold:path(($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10))) };
+
 (: POST :)
 declare %rest:path("/") %rest:POST("{$body}")
 function fold:proxy_post($body) { $fold:handler(fold:path($body, ())) };
@@ -228,6 +258,36 @@ function fold:proxy_post($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9) { $f
 declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/{$s10}") %rest:POST("{$body}")
 function fold:proxy_post($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10))) };
 
+declare %rest:path("/{$s1}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1) { $fold:handler(fold:path($body, ($s1))) };
+
+declare %rest:path("/{$s1}/{$s2}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2) { $fold:handler(fold:path($body, ($s1, $s2))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3) { $fold:handler(fold:path($body, ($s1, $s2, $s3))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4, $s5) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4, $s5, $s6) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/") %rest:POST("{$body}") 
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/{$s10}/") %rest:POST("{$body}")
+function fold:proxy_post_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10))) };
+
 (: PUT :)
 declare %rest:path("/") %rest:PUT("{$body}")
 function fold:proxy_put($body) { $fold:handler(fold:path($body, ())) };
@@ -261,3 +321,33 @@ function fold:proxy_put($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9) { $fo
 
 declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/{$s10}") %rest:PUT("{$body}")
 function fold:proxy_put($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10))) };
+
+declare %rest:path("/{$s1}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1) { $fold:handler(fold:path($body, ($s1))) };
+
+declare %rest:path("/{$s1}/{$s2}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2) { $fold:handler(fold:path($body, ($s1, $s2))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3) { $fold:handler(fold:path($body, ($s1, $s2, $s3))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4, $s5) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4, $s5, $s6) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/") %rest:PUT("{$body}") 
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9))) };
+
+declare %rest:path("/{$s1}/{$s2}/{$s3}/{$s4}/{$s5}/{$s6}/{$s7}/{$s8}/{$s9}/{$s10}/") %rest:PUT("{$body}")
+function fold:proxy_put_slash($body,$s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10) { $fold:handler(fold:path($body, ($s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10))) };

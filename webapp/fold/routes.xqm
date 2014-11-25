@@ -310,7 +310,7 @@ declare function route:matches($route-matcher as map(*), $request as map(*))
 declare function route:route($routes) {
     function($request as map(*)) as map(*)? {
         hof:until(
-            function($routes) { head($routes) instance of map(*) },
+            function($routes) { head($routes) instance of map(*) or empty(head($routes)) },
             function($routes) {
                 let $fn := head($routes)
                 return

@@ -17,8 +17,7 @@ import module namespace route = 'http://xokomola.com/xquery/fold/routes'
 (: ---- /math service ---- :)
 
 declare variable $app:routes := (
-    context('/math', $app:sum-routes),
-    route:not-found(<error code="404">We have a problem Jim!</error>)    
+    context('/math', $app:sum-routes)  
 );
 
 declare variable $app:sum-routes := (

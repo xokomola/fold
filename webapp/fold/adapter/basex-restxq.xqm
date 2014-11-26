@@ -29,10 +29,6 @@ declare variable $fold:time-cache := false();
  :
  : @param $request a request map.
  : @return the HTTP response object.
- : @error Foo bar
- : @since 0.1
- : @see foobar
- : @deprecated
  :)
 
 declare function fold:serve($request as map(*)) {

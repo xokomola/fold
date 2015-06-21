@@ -58,7 +58,7 @@ declare function res:render($response, $request as map(*))
  :)
 declare function res:status($response as map(*), $status as xs:integer)
     as map(*) {
-    map:new((
+    map:merge((
         $response,
         map { 'status': $status }
     ))
@@ -74,7 +74,7 @@ declare function res:status($response as map(*), $status as xs:integer)
  :)
 declare function res:body($response as map(*), $body)
     as map(*) {
-    map:new((
+    map:merge((
         $response,
         map { 'body': $body }
     ))
@@ -90,12 +90,12 @@ declare function res:body($response as map(*), $body)
  :)
 declare function res:header($response as map(*), $name as xs:string, $value)
     as map(*) {
-    map:new((
+    map:merge((
         $response, 
         map { 'headers': 
-            map:new((
+            map:merge((
                 $response('headers'), 
-                map:new((map:entry($name, $value)))
+                map:merge((map:entry($name, $value)))
             ))
         }
     ))
@@ -124,7 +124,7 @@ declare function res:file-response($filepath as xs:string, $options as map(*))
     let $options := utils:merge(map { 'binary': false() }, $options)
     where $path
     return
-        map:new((
+        map:merge((
             if ($options('binary')) then
                 res:response(stream:materialize(file:read-binary($path)))
             else
@@ -200,10 +200,10 @@ declare function res:charset($response as map(*), $charset as xs:string)
             'application/xml'
     let $new-content-type-header := $content-type || '; charset=' || $charset
     return
-        map:new((
+        map:merge((
             $response, 
             map { 'headers': 
-                map:new((
+                map:merge((
                     $response('headers'), 
                     map { 'Content-Type': $new-content-type-header }
                 ))
@@ -344,7 +344,7 @@ declare function res:response($body) {
 };
 
 declare function res:response($status as xs:integer, $body) {
-    map:new((
+    map:merge((
         map:entry('status', $status),
         (: TODO: This duplicates what res:render already does :)
         typeswitch($body)
@@ -371,7 +371,7 @@ declare function res:redirect($status as xs:integer, $location) {
 };
 
 declare function res:redirect($status as xs:integer, $location, $body) {
-    map:new((
+    map:merge((
         map:entry('status', $status),
         map:entry('headers', map { 'Location': $location }),
         map:entry('body', $body)

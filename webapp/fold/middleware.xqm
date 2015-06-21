@@ -35,7 +35,7 @@ declare function wrap:assoc-query-params($request as map(*), $encoding as xs:str
             ()
     return
         if ($params instance of map(*)) then
-            map:new((
+            map:merge((
                 $request,
                 map {
                     'query-params': $params,
@@ -63,7 +63,7 @@ declare function wrap:assoc-form-params($request as map(*), $encoding as xs:stri
             ()
     return
         if ($params instance of map(*)) then
-            map:new((
+            map:merge((
                 $request,
                 map {
                     'form-params': $params,
@@ -161,7 +161,7 @@ declare function wrap:head($handler) {
 declare function wrap:head-request($request as map(*))
     as map(*) {
     if ($request('request-method') = 'HEAD') then
-        map:new(($request, map { 'request-method': 'GET' }))
+        map:merge(($request, map { 'request-method': 'GET' }))
     else
         $request
 };
@@ -172,7 +172,7 @@ declare function wrap:head-request($request as map(*))
 declare function wrap:head-response($response as map(*)?, $request as map(*)?)
     as map(*)? {
     if ($response instance of map(*) and $request('request-method') = 'HEAD') then
-        map:new(($response, map { 'body': () } ))
+        map:merge(($response, map { 'body': () } ))
     else
         $response
 };
@@ -345,12 +345,12 @@ declare %private function wrap:handle-multipart-params($request as map(*)) {
         }
     return
         if ($multipart-param-names) then
-            map:new((
+            map:merge((
                 for $parameter-name in $multipart-param-names
                 let $param := request:parameter($parameter-name)
                 return
                     map:entry($parameter-name,
-                        map:new((
+                        map:merge((
                             for $file-name in map:keys($param)
                             let $file-content := $param($file-name)
                             let $file-path := file:temp-dir() || $file-name
@@ -369,7 +369,7 @@ declare function wrap:multipart-params-request($request as map(*))
     as map(*) {
     let $params := wrap:handle-multipart-params($request)
     return
-        map:new((
+        map:merge((
             $request,
             map { 
                 'multipart-params': $params,

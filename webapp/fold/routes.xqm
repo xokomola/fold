@@ -195,7 +195,7 @@ declare %private function route:group-map($path as xs:string)
     let $group-matcher := analyze-string($path, '\{(' || $route:re-group || ')\}|(\*)')
     let $groups := for $group in $group-matcher//fn:group return string($group)
     return
-        map:new((
+        map:merge((
             for $group in distinct-values($groups)
             return
                 map:entry($group, index-of($groups, $group))
@@ -207,7 +207,7 @@ declare %private function route:group-map($path as xs:string)
  :)
 declare %private function route:assoc-route-params($request as map(*), $params as map(*))
     as map(*) {
-    map:new(($request, 
+    map:merge(($request, 
         map { 
             'params': route:merge-map-values($request('params'), $params) 
         }
@@ -220,7 +220,7 @@ declare %private function route:assoc-route-params($request as map(*), $params a
  :)
 declare %private function route:merge-map-values($m as map(*)?, $n as map(*))
     as map(*) {
-    map:new(
+    map:merge(
         for $key in distinct-values((map:keys(($m, map {})[1]), map:keys($n)))
         return
             map:entry($key, (($m, map {})[1]($key), $n($key)))
@@ -238,7 +238,7 @@ declare %private function route:if-method($method as xs:string?, $handler as fun
             $handler($request)
         else
             if ($method eq 'GET' and $request('request-method') eq 'HEAD') then
-                map:new(($handler($request), map { 'body': () }))
+                map:merge(($handler($request), map { 'body': () }))
             else
                 () 
     }
@@ -287,7 +287,7 @@ declare function route:matches($route-matcher as map(*), $request as map(*))
     let $groups := $result/fn:match/fn:group
     where $result/fn:match
     return
-        map:new((
+        map:merge((
             for $key in map:keys($route-groups)
             let $group-nrs := $route-groups($key)
             return
@@ -485,7 +485,7 @@ declare function route:context($route as item()+, $routes as item()+) {
     route:if-route(
         route:compile(
             ($route[1] || '{__path-info}', 
-                map:new((
+                map:merge((
                     ($route[2], map {})[1], 
                     map { '__path-info': '/.*|.*' }
                 ))
@@ -507,8 +507,8 @@ declare %private function route:wrap-context($handler as function(map(*)) as ite
         let $subpath := route:path-encode(($request('params'), map {})[1]('__path-info'))
         return
             $handler(
-                map:new((
-                    map:new(($request, map { 'params': map:remove(($request('params'), map {})[1], '__path-info') })),
+                map:merge((
+                    map:merge(($request, map { 'params': map:remove(($request('params'), map {})[1], '__path-info') })),
                     map { 
                         'uri': $uri,
                         'path-info': if ($subpath) then $subpath else '/',

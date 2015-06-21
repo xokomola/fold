@@ -73,7 +73,7 @@ declare function fold:path($body, $segments as xs:string*)
  :)
 declare function fold:build-request-map($params as map(*))
     as map(*) {
-    map:new((
+    map:merge((
         (: TODO: also add content-type and content-length (lower-case) on root map :)
         map:entry('server-port', request:port()),
         map:entry('server-name', request:hostname()),
@@ -88,14 +88,14 @@ declare function fold:build-request-map($params as map(*))
         (: Basex request module doesn't differentiate between query string, form params etc. :)
         (: We'll add them here so fold wrap:params can deal with them and included them in the params :)
         map:entry('basex-params',
-            map:new((
+            map:merge((
                 for $param in request:parameter-names()
                 return
                     map:entry(fn:lower-case($param), request:parameter($param))
             ))
         ),
         map:entry('headers', 
-            map:new(( 
+            map:merge(( 
                 for $header in request:header-names()
                 return 
                     map:entry(fn:lower-case($header), request:header($header))

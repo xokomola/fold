@@ -41,10 +41,10 @@ declare %private function mock:encode-params($params as map(*))
  :)
 declare function mock:header($request as map(*), $header as xs:string, $value)
     as map(*) {
-    map:new((
+    map:merge((
         $request, 
         map { 'headers': 
-            map:new((
+            map:merge((
                 $request('headers'),
                 map:entry(lower-case($header), $value)
             )) 
@@ -110,7 +110,7 @@ declare function mock:merge-query($request as map(*), $params)
     let $query := mock:combined-query($request, $params)
     return
         if ($query) then
-            map:new(($request, map { 'query-string':  $query })) 
+            map:merge(($request, map { 'query-string':  $query })) 
         else
             $request
 };
@@ -124,7 +124,7 @@ declare function mock:merge-query($request as map(*), $params)
  :)
 declare function mock:query-string($request as map(*), $params)
     as map(*) {
-    map:new((
+    map:merge((
         $request,
         map {
             'query-string': 
@@ -167,7 +167,7 @@ declare function mock:body($request as map(*), $params)
         mock:content-type(
             mock:content-length(
                 if ($body) then
-                    map:new((
+                    map:merge((
                         $request,
                         map { 'body': $body }
                     ))
@@ -204,7 +204,7 @@ declare function mock:request($method as xs:string, $uri as xs:string, $params)
     let $query    := uri:get-raw-query($uri)
     let $headers  := map { 'host': if ($port) then $host || ':' || $port else $host }
     let $request  :=
-        map:new((
+        map:merge((
             map:entry('server-port', ($port, 80)[1]),
             map:entry('server-name', $host),
             map:entry('remote-addr', 'localhost'),

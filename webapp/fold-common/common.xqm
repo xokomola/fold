@@ -18,9 +18,6 @@ declare namespace lc = 'java:java.util.Locale';
 declare namespace d = 'java:java.util.Date';
 declare namespace pex = 'java:java.text.ParseException';
 
-import module namespace apply = 'http://xokomola.com/xquery/common/apply'
-    at 'apply.xqm'; 
-
 (:~
  : Convenience function for use in higher order functions.
  :)
@@ -98,7 +95,7 @@ declare function utils:interleave($seq1, $seq2) {
 declare function utils:merge($maps as map(*)*) 
     as map(*)? {
     if (some $map in $maps satisfies $map instance of map(*)) then
-        map:new($maps)
+        map:merge($maps)
     else
         ()
 };
@@ -157,7 +154,7 @@ declare function utils:insert-with(
     $value as item()*,
     $map as map(*)) 
     as map(*) {
-    map:new((
+    map:merge((
         $map,
         map:entry(
             $key,
@@ -173,7 +170,7 @@ declare function utils:insert-with(
  : Returns a map with the keys mapped to the corresponding values.
  :)
 declare function utils:zipmap($keys as xs:anyAtomicType*, $vals) as map(*) {
-    map:new((
+    map:merge((
         for $i in 1 to count($keys)
         return
             map:entry($keys[$i], $vals[$i]) 
@@ -210,7 +207,7 @@ declare function utils:comp($fns) {
                 return
                     fold-left(
                         tail($fns), 
-                        apply:apply(head($fns), $input),
+                        apply(head($fns), $input),
                         function($args, $fn) {
                             $fn($args)
                         }

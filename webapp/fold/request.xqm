@@ -152,7 +152,7 @@ declare function req:is-in-context($request as map(*), $context as xs:string)
  :)
 declare function req:set-context($request as map(*), $context as xs:string) {
     if (req:is-in-context($request, $context)) then
-        map:new((
+        map:merge((
             $request,
             map {
                 'context': string-join(($request('context'), $context), ''), 

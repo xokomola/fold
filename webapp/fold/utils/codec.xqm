@@ -103,7 +103,7 @@ declare function codec:form-decode($encoded, $encoding as xs:string) {
     if (not(contains($encoded, '='))) then
         codec:form-decode-str($encoded, $encoding)
     else
-        map:new((
+        map:merge((
             for $pair in tokenize($encoded, '&amp;')
             let $k := codec:form-decode-str(substring-before($pair, '='), $encoding)
             let $v := codec:form-decode-str(substring-after($pair, '='), $encoding)

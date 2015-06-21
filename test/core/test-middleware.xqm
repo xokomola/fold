@@ -11,13 +11,13 @@ xquery version "3.0";
 module namespace test = 'http://xokomola.com/xquery/fold/tests';
 
 import module namespace wrap = 'http://xokomola.com/xquery/fold/middleware'
-    at '../../webapp/fold/middleware.xqm';
+    at '../../core/middleware.xqm';
 import module namespace req = 'http://xokomola.com/xquery/fold/request'
-    at '../../webapp/fold/request.xqm';
+    at '../../core/request.xqm';
 import module namespace res = 'http://xokomola.com/xquery/fold/response'
-    at '../../webapp/fold/response.xqm';
+    at '../../core/response.xqm';
 import module namespace utils = 'http://xokomola.com/xquery/common'
-    at '../../webapp/fold-common/common.xqm';
+    at '../../common/common.xqm';
 
 (:~
  : wrap:params

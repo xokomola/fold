@@ -14,7 +14,7 @@ xquery version "3.0";
 module namespace res = 'http://xokomola.com/xquery/fold/response';
 
 import module namespace utils = 'http://xokomola.com/xquery/common'
-    at '../fold-common/common.xqm';
+    at '../common/common.xqm';
 
 (:~
  : Generate a response map from a Fold route handler's return value.

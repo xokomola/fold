@@ -16,7 +16,7 @@ declare namespace f = 'java:java.io.File';
 declare default function namespace 'http://xokomola.com/xquery/fold/response';
 
 import module namespace res = 'http://xokomola.com/xquery/fold/response'
-    at '../../webapp/fold/response.xqm';
+    at '../../core/response.xqm';
 
 declare %unit:test function test:render-empty() {
     unit:assert-equals(

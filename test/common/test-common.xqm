@@ -12,7 +12,7 @@ module namespace test = 'http://xokomola.com/xquery/fold/tests';
 declare default function namespace 'http://xokomola.com/xquery/common';
 
 import module namespace utils = 'http://xokomola.com/xquery/common'
-    at '../../webapp/fold-common/common.xqm';
+    at '../../common/common.xqm';
 
 declare %unit:test function test:add() {
     unit:assert-equals(add(1,1), 2),

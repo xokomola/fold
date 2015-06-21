@@ -15,7 +15,7 @@ module namespace fold = 'http://xokomola.com/xquery/fold/adapter';
 
 import module namespace request = 'http://exquery.org/ns/request';
 import module namespace res = 'http://xokomola.com/xquery/fold/response'
-    at '../../fold/response.xqm'; 
+    at '../core/response.xqm'; 
 import module namespace service = 'http://xokomola.com/xquery/fold'
     at '../../routes.xqm'; 
 

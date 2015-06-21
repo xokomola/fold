@@ -14,11 +14,11 @@ module namespace test = 'http://xokomola.com/xquery/fold/tests';
 declare default function namespace 'http://xokomola.com/xquery/fold/routes';
 
 import module namespace routes = 'http://xokomola.com/xquery/fold/routes'
-    at '../../webapp/fold/routes.xqm';
+    at '../../core/routes.xqm';
 import module namespace res = 'http://xokomola.com/xquery/fold/response'
-    at '../../webapp/fold/response.xqm';
+    at '../../core/response.xqm';
 import module namespace mock = 'http://xokomola.com/xquery/fold/utils/mock'
-    at '../../webapp/fold/utils/mock.xqm'; 
+    at '../../utils/mock.xqm'; 
 
 declare %unit:test function test:path-decode() {
     unit:assert-equals(path-decode('abc'),   'abc'),
@@ -191,7 +191,7 @@ declare %unit:test function test:unmatched-paths() {
 
 declare %unit:test function test:path-info-matches() {
     let $request := 
-        map:new((mock:request('GET', '/foo/bar'), map { 'path-info': '/bar' } ))
+        map:merge((mock:request('GET', '/foo/bar'), map { 'path-info': '/bar' } ))
     return
         (: path-info causes a match but with 0 param bindings :)
         unit:assert-equals(

@@ -13,9 +13,9 @@ module namespace test = 'http://xokomola.com/xquery/fold/tests';
 declare default function namespace 'http://xokomola.com/xquery/fold/request';
 
 import module namespace req = 'http://xokomola.com/xquery/fold/request'
-    at '../../webapp/fold/request.xqm';
+    at '../../core/request.xqm';
 import module namespace mock = 'http://xokomola.com/xquery/fold/utils/mock'
-    at '../../webapp/fold/utils/mock.xqm'; 
+    at '../../utils/mock.xqm'; 
 
 declare %unit:test function test:request-url() {
     unit:assert-equals(

@@ -47,9 +47,9 @@ declare function proxy:response($response as item()+)
     let $response as element(http:response) := head($response)
     let $body := tail($response)
     return
-        map:new((
+        map:merge((
             map:entry('status', $response/@status),
-            map:entry('headers', map:new((
+            map:entry('headers', map:merge((
                 for $header in $response/http:header
                 return
                     map:entry($header/@name, $header/@value)
@@ -67,7 +67,7 @@ declare function proxy:response($response as item()+)
  :)
 declare %private function proxy:rewrite-request($request, $options)
     as map(*) {
-    map:new(($request, map { 'uri': $options('uri') }))
+    map:merge(($request, map { 'uri': $options('uri') }))
 };
 
 (:~

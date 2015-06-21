@@ -13,7 +13,7 @@ module namespace test = 'http://xokomola.com/xquery/fold/tests';
 declare default function namespace 'http://xokomola.com/xquery/fold/utils/codec';
 
 import module namespace mock = 'http://xokomola.com/xquery/fold/utils/codec'
-    at '../../webapp/fold/utils/codec.xqm'; 
+    at '../../utils/codec.xqm'; 
 
 declare %unit:test function test:url-decode() {
     unit:assert-equals(url-decode('foo%2Fbar'), 'foo/bar'),

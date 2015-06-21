@@ -13,7 +13,7 @@ module namespace test = 'http://xokomola.com/xquery/fold/tests';
 declare default function namespace 'http://xokomola.com/xquery/common/mime-type';
 
 import module namespace mock = 'http://xokomola.com/xquery/common/mime-type'
-    at '../../webapp/fold-common/mime.xqm'; 
+    at '../../common/mime.xqm'; 
 
 declare %unit:test function test:ext-mime-type() {
     (: default mime types :)

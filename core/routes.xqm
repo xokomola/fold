@@ -25,9 +25,7 @@ import module namespace res = 'http://xokomola.com/xquery/fold/response'
 import module namespace wrap = 'http://xokomola.com/xquery/fold/middleware'
     at 'middleware.xqm';
 import module namespace utils = 'http://xokomola.com/xquery/common'
-    at '../fold-common/common.xqm';
-import module namespace apply = 'http://xokomola.com/xquery/common/apply'
-    at '../fold-common/apply.xqm';
+    at '../common/common.xqm';
 
 (:~
  : Escape all special regex chars in a string.
@@ -371,7 +369,7 @@ declare function route:def($method as xs:string?, $route as item()+, $args as xs
             function($request as map(*)) {
                 let $arg-list := route:bind-handler-args($args, $request)
                 return
-                    res:render(apply:apply($handler, $arg-list), $request)
+                    res:render(apply($handler, array { $arg-list }), $request)
             }
         )
     )

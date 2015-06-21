@@ -16,11 +16,11 @@ import module namespace req = 'http://xokomola.com/xquery/fold/request'
 import module namespace res = 'http://xokomola.com/xquery/fold/response'
     at 'response.xqm';
 import module namespace codec = 'http://xokomola.com/xquery/fold/utils/codec'
-    at 'utils/codec.xqm';
+    at '../utils/codec.xqm';
 import module namespace utils = 'http://xokomola.com/xquery/common'
-    at '../fold-common/common.xqm';
+    at '../common/common.xqm';
 import module namespace mime = 'http://xokomola.com/xquery/common/mime-type'
-    at '../fold-common/mime.xqm';
+    at '../common/mime.xqm';
 
 (:~
  : Parse and assoc parameters from the query string with the request.

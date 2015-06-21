@@ -16,7 +16,7 @@ module namespace test = 'http://xokomola.com/xquery/fold/tests';
 declare default function namespace 'http://xokomola.com/xquery/fold/utils/mock';
 
 import module namespace mock = 'http://xokomola.com/xquery/fold/utils/mock'
-    at '../../webapp/fold/utils/mock.xqm'; 
+    at '../../utils/mock.xqm'; 
 
 declare %unit:test function test:request-relative-uri() {
     unit:assert-equals(

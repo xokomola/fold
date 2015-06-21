@@ -17,7 +17,7 @@ xquery version "3.0";
 module namespace codec = 'http://xokomola.com/xquery/fold/utils/codec';
 
 import module namespace utils = 'http://xokomola.com/xquery/common'
-    at '../../fold-common/common.xqm';
+    at '../common/common.xqm';
 
 declare namespace encoder = 'java:java.net.URLEncoder'; 
 declare namespace decoder = 'java:java.net.URLDecoder'; 

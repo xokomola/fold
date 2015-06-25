@@ -30,7 +30,11 @@ declare function res:render($response, $request as map(*))
     as map(*)? {
     typeswitch ($response)
         case map(*)
-            return $response
+            return 
+                if (map:contains($response,'body')) then 
+                    $response
+                else
+                    res:content-type(res:response(serialize($response, map { 'method': 'json' })), 'application/json; charset=utf8')
         case document-node()
             return res:content-type(res:response($response), 'application/xml; charset=utf-8')
         case node()

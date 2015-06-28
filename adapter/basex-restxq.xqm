@@ -19,9 +19,6 @@ import module namespace res = 'http://xokomola.com/xquery/fold/response'
 import module namespace service = 'http://xokomola.com/xquery/fold'
     at '../../routes.xqm'; 
 
-declare variable $fold:time := false();
-declare variable $fold:time-cache := false();
-
 (:~
  : Route the request through the routes map in apps.
  :
@@ -35,17 +32,7 @@ declare function fold:serve($request as map(*)) {
     fold:serve-response(service:routes()($request))
 };
 
-declare function fold:timed-serve($request as map(*)) {
-    prof:mem(prof:time(fold:serve($request), 
-        $fold:time-cache, 'TOTAL TIME: '), 
-        $fold:time-cache, 'TOTAL MEM: ')
-};
-
-declare variable $fold:handler := 
-    if ($fold:time) then 
-        fold:timed-serve#1 
-    else
-        fold:serve#1;
+declare variable $fold:handler := fold:serve#1;
 
 (:~
  : Create the initial request map.

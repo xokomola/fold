@@ -141,28 +141,69 @@ declare function mock:query-string($request as map(*), $params)
 
 (:~
  : Set the body of the request. The supplied body value can be a string or
- : a map of parameters to be url-encodied.
+ : a map of parameters to be url-encoded (such as for a form).
  :
  : @param $request The request map
  : @param $params A query string or a parameter map
  : @return The modified request map
  :)
-declare function mock:body($request as map(*), $params)
+declare function mock:body($request as map(*), $body)
+    as map(*) {
+    
+    let $content-type := $request('headers')('content-type')
+    let $body := 
+        if ($content-type eq 'application/json' and $body instance of xs:string) then
+            parse-json($body)
+        else if ($content-type eq 'application/xml' and $body instance of xs:string) then
+            parse-xml($body)/*
+        else
+            $body
+    let $content :=
+        typeswitch ($body)
+        case node()
+        return serialize($body)
+        case array(*)
+        return serialize($body, map { 'method': 'json' })
+        case map(*)
+        return serialize($body, map { 'method': 'json' })
+        default
+        return string($body)        
+    let $content-type := ($content-type, 'application/x-www-form-urlencoded')[1]
+    return
+        mock:content-type(
+            mock:content-length(
+                if (not(empty($body))) then
+                    map:merge((
+                        $request,
+                        map { 'body': $body }
+                    ))
+                else
+                    $request, 
+                (: NOTE: this should be in bytes not in characters, but it's probably never actually used :)
+                string-length($content)
+            ),
+            $content-type
+        )
+};
+
+(:~
+ : Set the body of a form post request. The supplied value can be a string or
+ : a map of parameters to be url-encoded (such as for a form).
+ :
+ : @param $request The request map
+ : @param $params A query string or a parameter map
+ : @return The modified request map
+ :)
+declare function mock:form($request as map(*), $params as map(*))
     as map(*) {
     let $body := 
-        typeswitch ($params)
-            case xs:string
-                return $params
-            case map(*)
-                return 
-                    if (map:size($params) gt 0) then 
-                        mock:encode-params($params)
-                    else
-                        ()
-            default
-                return ()
-    (: FIXME: this should be in bytes not in characters :)
+        if (map:size($params) gt 0) then 
+            mock:encode-params($params)
+        else
+            ()
+    (: NOTE: this should be in bytes not in characters, but it's probably never actually used :)
     let $content-length := string-length($body)
+    let $content-type := 'application/x-www-form-urlencoded'
     return
         mock:content-type(
             mock:content-length(
@@ -175,7 +216,7 @@ declare function mock:body($request as map(*), $params)
                     $request, 
                 $content-length
             ),
-            'application/x-www-form-urlencoded'
+            $content-type
         )
 };
 

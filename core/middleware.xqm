@@ -325,8 +325,8 @@ declare %private function wrap:date-header($response, $header)
 
 Stack Trace:
 - /Users/marcvangrootel/data/basex/webapp/fold/middleware.xqm, 219/44
-- /Users/marcvangrootel/data/basex/webapp/fold/routes.xqm, 306/37
-- /Users/marcvangrootel/data/basex/webapp/fold/routes.xqm, 227/30
+- /Users/marcvangrootel/data/basex/webapp/fold/router.xqm, 306/37
+- /Users/marcvangrootel/data/basex/webapp/fold/router.xqm, 227/30
 :)
 
 (: TODO: The error can be caught to handle it ourselves, maybe be more specific :)

@@ -5,7 +5,7 @@ xquery version "3.0";
  :
  : Contains the lower-level stuff to interface with BaseX.
  : Also makes dispatches the request to the main routes in
- : routes.xqm fold:route.
+ : router.xqm fold:route.
  :
  : @version 0.1
  : @author Marc van Grootel
